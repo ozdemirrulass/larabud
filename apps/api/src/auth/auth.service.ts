@@ -9,8 +9,6 @@ import { verify } from 'argon2';
 
 @Injectable()
 export class AuthService {
-
-
     constructor(
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
@@ -60,6 +58,15 @@ export class AuthService {
     }
 
     async validateJwtUser(userId: number) {
+        const user = await this.userService.findOne(userId)
+        if (!user) throw new UnauthorizedException("User not found!")
+        const currentUser = { id: user.id }
+
+        return currentUser
+    }
+
+    async validateRefreshToken(userId: number) {
+
         const user = await this.userService.findOne(userId)
         if (!user) throw new UnauthorizedException("User not found!")
         const currentUser = { id: user.id }
