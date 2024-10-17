@@ -8,6 +8,9 @@ import jwtConfig from './config/jwt.config';
 import { ConfigModule } from '@nestjs/config';
 import refreshConfig from './config/refresh.config';
 import githubOauthConfig from './config/github-oauth.config';
+import { LocalStrategy } from './strategies/local.strategy';
+import { RefreshJwtStrategy } from './strategies/refresh-token.strategy';
+import { GithubStrategy } from './strategies/github.strategy';
 
 @Module({
   imports: [
@@ -17,6 +20,14 @@ import githubOauthConfig from './config/github-oauth.config';
     ConfigModule.forFeature(githubOauthConfig),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, PrismaService, JwtService],
+  providers: [
+    AuthService,
+    UserService,
+    PrismaService,
+    LocalStrategy,
+    JwtService,
+    RefreshJwtStrategy,
+    GithubStrategy
+  ],
 })
 export class AuthModule { }

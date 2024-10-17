@@ -9,6 +9,7 @@ import { verify } from 'argon2';
 
 @Injectable()
 export class AuthService {
+
     constructor(
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
@@ -81,5 +82,11 @@ export class AuthService {
             accessToken,
             refreshToken
         }
+    }
+
+    async validateGithubUser(githubUser: RegisterUserDto) {
+        const user = await this.userService.findByEmail(githubUser.email);
+        if (user) return user;
+        return await this.userService.create(githubUser);
     }
 }
