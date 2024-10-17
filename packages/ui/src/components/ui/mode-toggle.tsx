@@ -3,22 +3,24 @@ import { Sun, Moon, Computer } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useState, useEffect } from "react"
 
+type Theme = 'light' | 'dark' | 'system';
+
 export function ModeToggle() {
     const { theme, setTheme } = useTheme()
-    const [selectedTheme, setSelectedTheme] = useState(theme)
+    const [selectedTheme, setSelectedTheme] = useState<Theme>(theme as Theme)
 
     useEffect(() => {
         setTheme(selectedTheme)
     }, [selectedTheme, setTheme])
 
-    const handleChange = (event) => {
-        setSelectedTheme(event.target.value)
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedTheme(event.target.value as Theme)
     }
 
     return (
         <div className={`relative flex cursor-default select-none justify-between items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors`}>
             <p>Theme</p>
-            <div className={`flex items-center border rounded-3xl`}>
+            <div className={`flex items-center border rounded-full`}>
                 <input
                     type="radio"
                     id="light"

@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} bg-center bg-repeat antialiased`}
         style={{
           backgroundImage: 'url(https://pinkary.com/img/dots.svg)',
-          backgroundSize: '350% 350%'
+          backgroundSize: '550% 550%'
         }}>
 
         <ThemeProvider
