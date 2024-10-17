@@ -11,6 +11,7 @@ import githubOauthConfig from './config/github-oauth.config';
 import { LocalStrategy } from './strategies/local.strategy';
 import { RefreshJwtStrategy } from './strategies/refresh-token.strategy';
 import { GithubStrategy } from './strategies/github.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -25,9 +26,9 @@ import { GithubStrategy } from './strategies/github.strategy';
     UserService,
     PrismaService,
     LocalStrategy,
-    JwtService,
+    JwtStrategy,
     RefreshJwtStrategy,
-    GithubStrategy
+    GithubStrategy,
   ],
 })
 export class AuthModule { }
