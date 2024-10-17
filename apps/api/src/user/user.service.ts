@@ -5,6 +5,7 @@ import { hash } from 'argon2';
 
 @Injectable()
 export class UserService {
+
     constructor(private readonly prisma: PrismaService) { }
     async create(createUserDto: RegisterUserDto) {
         const { password, ...user } = createUserDto;
@@ -21,6 +22,14 @@ export class UserService {
         return await this.prisma.users.findUnique({
             where: {
                 email,
+            }
+        })
+    }
+
+    async findOne(userId: number) {
+        return await this.prisma.users.findUnique({
+            where: {
+                id: userId,
             }
         })
     }
