@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { RegisterUserDto } from 'src/user/dto/register-user.dto';
 import { UserService } from 'src/user/user.service';
 
@@ -14,5 +14,13 @@ export class AuthService {
             throw new ConflictException("User already exists!")
         }
         return this.userService.create(registerUserDto)
+    }
+    async validateLocalUser(email: string, password: string) {
+        const user = await this.userService.findByEmail(email);
+        if (!user) throw new UnauthorizedException("User not found!");
+        const isPasswordMatched = verify(user.password, password);
+        if (!isPasswordMatched) throw new UnauthorizedException("Invalid Credentials!");
+
+        return { id: user.id, name: user.name }
     }
 }
