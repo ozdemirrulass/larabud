@@ -37,10 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <>
-            <TopBar />
-            {children}
-          </>
+          {children}
         </ThemeProvider>
 
       </body>
