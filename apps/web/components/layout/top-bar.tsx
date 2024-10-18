@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icons } from './icons'
-import { UserNav } from './user-nav'
+import AuthNav from './auth-nav'
+import { MainNav } from './main-nav'
 
 const TopBar = () => {
     return (
@@ -11,8 +12,9 @@ const TopBar = () => {
                     Larabud
                 </div>
                 <Icons.separator className="h-4 w-4" />
+                <MainNav />
                 <div className="ml-auto flex items-center space-x-4">
-                    <UserNav />
+                    <AuthNav />
                 </div>
             </div>
         </div>
