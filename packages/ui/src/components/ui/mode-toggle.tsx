@@ -5,9 +5,9 @@ import { useState, useEffect } from "react"
 
 type Theme = 'light' | 'dark' | 'system';
 
-export function ModeToggle() {
+export function ModeToggle({ hasSession }: { hasSession: boolean }) {
     const { theme, setTheme } = useTheme()
-    const [selectedTheme, setSelectedTheme] = useState<Theme>(theme as Theme)
+    const [selectedTheme, setSelectedTheme] = useState<Theme>('system')
 
     useEffect(() => {
         setTheme(selectedTheme)
@@ -19,7 +19,7 @@ export function ModeToggle() {
 
     return (
         <div className={`relative flex cursor-default select-none justify-between items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors`}>
-            <p>Theme</p>
+            {hasSession && <p>Theme</p>}
             <div className={`flex items-center border rounded-full`}>
                 <input
                     type="radio"

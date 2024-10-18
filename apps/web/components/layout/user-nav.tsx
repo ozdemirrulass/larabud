@@ -1,3 +1,5 @@
+"use client"
+import { Session } from "@/lib/type"
 import {
     Avatar,
     AvatarFallback,
@@ -16,7 +18,7 @@ import {
 } from "@repo/ui/components/ui/dropdown-menu"
 import { ModeToggle } from "@repo/ui/components/ui/mode-toggle"
 
-export async function UserNav() {
+export function UserNav({ session }: { session: Session }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -30,7 +32,7 @@ export async function UserNav() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">{"John Doe"}</p>
+                        <p className="text-sm font-medium leading-none">{session.user.name}</p>
                         <p className="text-xs leading-none text-muted-foreground">
                             example@email.com
                         </p>
@@ -39,7 +41,7 @@ export async function UserNav() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                        <ModeToggle />
+                        <ModeToggle hasSession={true} />
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         Profile
@@ -51,9 +53,11 @@ export async function UserNav() {
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    Logout
-                    <DropdownMenuShortcut>⌘L</DropdownMenuShortcut>
+                <DropdownMenuItem asChild>
+                    <a href={`/api/logout`}>
+                        Logout
+                        <DropdownMenuShortcut>⌘L</DropdownMenuShortcut>
+                    </a>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
