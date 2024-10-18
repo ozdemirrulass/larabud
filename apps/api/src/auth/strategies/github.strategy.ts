@@ -15,16 +15,26 @@ export class GithubStrategy extends PassportStrategy(Strategy) {
             callbackURL: githubConfig.callbackURL,
             clientID: githubConfig.clientID,
             clientSecret: githubConfig.clientSecret,
+            scope: ['user'],
         })
     }
 
     async validate(accessToken: string, refreshToken: string, profile: Profile, done: any) {
-        const user = await this.authService.validateGithubUser({
-            email: profile.emails[0].value,
-            name: profile.displayName,
-            password: ''
-        })
+        const email = (profile.emails && profile.emails.length > 0) ? profile.emails[0].value : null;
 
-        done(null, user)
+        if (!email) {
+            return done(new Error('No email found from GitHub profile'), null);
+        }
+
+        try {
+            const user = await this.authService.validateGithubUser({
+                email,
+                name: profile.displayName,
+                password: ''
+            });
+            done(null, user);
+        } catch (error) {
+            done(error, null);
+        }
     }
 }
