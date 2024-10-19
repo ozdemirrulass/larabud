@@ -25,6 +25,7 @@ model users {
 
 model workspaces {
   id       String     @id @default(cuid())
+  name     String
   users    users[]    @relation("UserWorkspaces")
   projects projects[] @relation("WorkspaceProjects")
 }
