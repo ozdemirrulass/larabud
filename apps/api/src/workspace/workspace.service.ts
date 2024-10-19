@@ -2,15 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { users } from '@prisma/client';
 
 @Injectable()
 export class WorkspaceService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async create(createWorkspaceDto: CreateWorkspaceDto) {
+  async create(createWorkspaceDto: CreateWorkspaceDto, user: users) {
     return await this.prisma.workspaces.create({
       data: {
         name: createWorkspaceDto.name,
+        users: {
+          connect: {
+            id: user.id
+          }
+        }
       },
     });
   }
