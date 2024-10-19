@@ -7,8 +7,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class WorkspaceService {
   constructor(private readonly prisma: PrismaService) { }
 
-  create(createWorkspaceDto: CreateWorkspaceDto) {
-    return 'This action adds a new workspace';
+  async create(createWorkspaceDto: CreateWorkspaceDto) {
+    return await this.prisma.workspaces.create({
+      data: {
+        name: createWorkspaceDto.name,
+      },
+    });
   }
 
   async findAll() {
