@@ -17,50 +17,53 @@ export async function MainNav({
             {...props}
         >
             {isLeftPosition
-                ? (session ? <WorkspaceSwitcher /> : (
-                    <>
-                        <Link
-                            href="/examples/dashboard"
-                            className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
-                        >
-                            Docs
-                        </Link>
-                        <Link
-                            href="/examples/dashboard"
-                            className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
-                        >
-                            Feedback
-                        </Link>
-                        <Link
-                            href="/examples/dashboard"
-                            className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
-                        >
-                            Support
-                        </Link>
-                    </>
-                ))
-                : (!session ? <WorkspaceSwitcher /> : (
-                    <>
-                        <Link
-                            href="/examples/dashboard"
-                            className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
-                        >
-                            Docs
-                        </Link>
-                        <Link
-                            href="/examples/dashboard"
-                            className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
-                        >
-                            Feedback
-                        </Link>
-                        <Link
-                            href="/examples/dashboard"
-                            className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
-                        >
-                            Support
-                        </Link>
-                    </>
-                ))}
+                ? (session && session.user ?
+                    <WorkspaceSwitcher />
+                    : (
+                        <>
+                            <Link
+                                href="/examples/dashboard"
+                                className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
+                            >
+                                Docs
+                            </Link>
+                            <Link
+                                href="/examples/dashboard"
+                                className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
+                            >
+                                Feedback
+                            </Link>
+                            <Link
+                                href="/examples/dashboard"
+                                className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
+                            >
+                                Support
+                            </Link>
+                        </>
+                    ))
+                : (session && session?.user &&
+                    (
+                        <>
+                            <Link
+                                href="/examples/dashboard"
+                                className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
+                            >
+                                Docs
+                            </Link>
+                            <Link
+                                href="/examples/dashboard"
+                                className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
+                            >
+                                Feedback
+                            </Link>
+                            <Link
+                                href="/examples/dashboard"
+                                className="text-sm flex items-center gap-1 font-medium transition-colors hover:text-primary"
+                            >
+                                Support
+                            </Link>
+                        </>
+                    ))}
         </nav>
     );
 }
