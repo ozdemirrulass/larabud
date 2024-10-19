@@ -9,6 +9,7 @@ import { ProjectModule } from './project/project.module';
 import { APP_GUARD } from '@nestjs/core';
 import { WorkspaceGuard } from './workspace/guards/workspace.guard';
 import { ClsModule } from 'nestjs-cls';
+import { JwtAuthGuard } from './auth/guards/jwt-auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -32,6 +33,10 @@ import { ClsModule } from 'nestjs-cls';
     {
       provide: APP_GUARD,
       useClass: WorkspaceGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
     },
   ],
 })
