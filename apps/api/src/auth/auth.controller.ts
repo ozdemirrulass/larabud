@@ -6,6 +6,7 @@ import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
 import { GithubAuthGuard } from './guards/github-auth/github-auth.guard';
 import { Response } from 'express';
 import { SkipWorkspace } from 'src/workspace/decorators';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -19,12 +20,14 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post("login")
   @SkipWorkspace()
+  @Public()
   login(@Request() req) {
     return this.authService.login(req.user.id, req.user.name)
   }
 
   @UseGuards(RefreshAuthGuard)
   @SkipWorkspace()
+  @Public()
   @Post('refresh')
   refreshToken(@Request() req) {
     return this.authService.refreshToken(req.user.id, req.user.name)
@@ -32,11 +35,13 @@ export class AuthController {
 
   @UseGuards(GithubAuthGuard)
   @SkipWorkspace()
+  @Public()
   @Get('github/login')
   githubLogin() { }
 
   @UseGuards(GithubAuthGuard)
   @SkipWorkspace()
+  @Public()
   @Get('github/callback')
   async githubCallback(@Request() req, @Res() res: Response) {
     const response = await this.authService.login(req.user.id, req.user.name)
